@@ -50,8 +50,8 @@
 
 #regForm {
   background-color: #ffffff;
-  margin: 100px auto;
-  padding: 40px;
+  margin: 50px auto;
+  padding: 20px;
   width: 70%;
   min-width: 300px;
 }
@@ -98,7 +98,6 @@ button:hover {
 button:hover {
   opacity: 0.8;
 }
-
 </style>
 
 </head>
@@ -188,27 +187,113 @@ button:hover {
 
 <div class="tab-content">
   <div id="summary" class="tab-pane fade in active" ng-controller="SummaryController as Summary">
-    <h3>Menu 1</h3>
 
     <form id="regForm" action="">
                
         <div class="panel">
             <!-- One "tab" for each step in the form: -->
-            <div class="tab"><h2>Death Cover</h2>
-                
+            <div class="tab panel panel-default">
+                <div class="panel-body">
+                    <h2>Death Cover</h2>
+                    <br />
+                    <h4>Sum Assured: $<span id="death_sa_value">10</span>,000</h4>
+                    <div id="slidecontainer">
+                        <input type="range" min="10" max="500" value="100" class="slider" id="death_sa_slider">
+                    </div>
+                    <br />
+                    <br />
+                    <h4>Coverage Term: <span id="death_term_value">5</span> years</h4>
+                    <div id="slidecontainer">
+                        <input type="range" min="1" max="50" value="5" class="slider" id="death_term_slider">
+                    </div>
+                    <br />
+                </div>
             </div>
             
-            <div class="tab"><h2>Critical Illness Cover</h2>
-            </div>
+            <div class="tab panel panel-default">
+                    <div class="panel-body">
+                        <h2>Critical Illness Cover</h2>
+                        <br />
+                        <h4>Sum Assured: $<span id="ci_sa_value">10</span>,000</h4>
+                        <div id="slidecontainer">
+                            <input type="range" min="10" max="500" value="10" class="slider" id="ci_sa_slider">
+                        </div>
+                        <br />
+                        <br />
+                        <h4>Coverage Term: <span id="ci_term_value">5</span> years</h4>
+                        <div id="slidecontainer">
+                            <input type="range" min="1" max="50" value="5" class="slider" id="ci_term_slider">
+                        </div>
+                        <br />
+                    </div>
+                </div>
             
-            <div class="tab"><h2>Personal Accident Cover</h2>
-            </div>
+                <div class="tab panel panel-default">
+                        <div class="panel-body">
+                            <h2>Personal Accident Cover</h2>
+                            <br />
+                            <h4>Sum Assured: $<span id="pa_sa_value">10</span>,000</h4>
+                            <div id="slidecontainer">
+                                <input type="range" min="10" max="500" value="10" class="slider" id="pa_sa_slider">
+                            </div>
+                            <br />
+                            <br />
+                        </div>
+                    </div>
             
-            <div class="tab"><h2>Hospitalization Cover</h2>
-            </div>
+                 <div class="tab panel panel-default">
+                        <div class="panel-body">
+                            <h2>Hospitalization Cover</h2>
+                            <br />
+                            <div class="radio">
+                                    <label>
+                                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="Plan A">
+                                      Plan A - Class A and B1 Wards. Both Public and Private hospitals.
+                                    </label>
+                                  </div>
+                                  <div class="radio">
+                                    <label>
+                                      <input type="radio" name="optionsRadios" id="optionsRadios2" value="Plan B">
+                                      Plan B - Class B2+ and B2 Wards. Public hospitals.
+                                    </label>
+                                  </div>
+                                  <div class="radio disabled">
+                                    <label>
+                                      <input type="radio" name="optionsRadios" id="optionsRadios3" value="Plan C">
+                                      Plan C - Class C Wards. Public hospitals.
+                                    </label>
+                                  </div>
+                            <br />
+                            <br />
+                        </div>
+                    </div>
 
-            <div class="tab"><h2>Disability Cover</h2>
-            </div>
+                <div class="tab panel panel-default">
+                        <div class="panel-body">
+                            <h2>Disability Cover</h2>
+                            <br />
+                            <h4>Annual Payout: $<span id="disa_sa_value">10</span>,000</h4>
+                            <div id="slidecontainer">
+                                <input type="range" min="10" max="50" value="10" class="slider" id="disa_sa_slider">
+                            </div>
+                            <br />
+                            <br />
+                            <h4>Coverage Term: <span id="disa_term_value">5</span> years</h4>
+                            <div id="slidecontainer">
+                                <input type="range" min="1" max="50" value="5" class="slider" id="disa_term_slider">
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+
+                <div class="tab panel panel-default">
+                        <div class="panel-body">
+                            <h2 class="text-center">Premium payable for next one year coverage selected</h2>
+                            <br />
+                            <h2 class="text-center">$1,800</h2>    
+                            <br />
+                        </div>
+                    </div>
             
             <div style="overflow:auto;">
               <div style="float:right;">
@@ -250,6 +335,7 @@ button:hover {
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.js"></script>
 <script src="./w3.js"></script>
 <script src="./menu1.js"></script>
+<script src="./slider.js"></script>
 
 <!--Angular 1 code goes here-->
 <script>
@@ -259,116 +345,6 @@ button:hover {
     } );
 
     var app = angular.module('MenuApp',[]);
-
-    app.factory('messages', function(){
-        var messages = {};
-
-        messages.list = [
-             {status:1, content:"Reminder - Outstanding Premium Payment (Insurer X Policy Y44513): Due 31st May 2016 [31/7/2016]"},
-             {status:1, content:"Travel Claim approved (Insurer Y Policy K44256): $5000 paid to bank account P24435 [31/7/2016]"},
-             {status:0, content:"PA Claim Form Received (Insurer Y, Policy K44256) [14/7/2016]"},
-             {status:0, content:"Reminder - Outstanding Premium Payment (Insurer X Policy Y44513): Due 31st May 2016 [31/6/2016]"} 
-         ];
-
-        messages.add = function(message){
-            messages.list.unshift({status:1, content: message});
-        };
-
-        return messages;
-     });
-
-
-     app.controller('NavController', function(messages){
-         var Nav = this;
-
-         Nav.newMsgCount = function() {
-            var newCount=0;
-            var msgs=messages.list;
-            var msgLength=msgs.length;
-            console.log(msgs)
-            for(var i=0; i<msgLength; i++) {
-                newCount +=msgs[i].status;
-            }
-            return newCount;
-         }
-
-     })//close Contact controller
-
-     app.controller('ContactController', function(messages){
-         var Contact = this;
-         
-         Contact.address = "Blk 123, Toa Payoh Ave 2, #10-10, S(423445)";
-         Contact.email = "jonathon@gmail.com";
-         Contact.tel = "67789456";
-         Contact.mobile = "95461237";
-         
-         Contact.update = function() {
-             alert("Change of Personal Contact Info Sent to Affected Parties - See Notifications");
-            // update notifications!
-             var updateString = "Update: " + Contact.address + "; " +  Contact.email + "; " +
-             Contact.tel + "; " + Contact.mobile;
-             messages.add(updateString);
-         }
-
-     })//close Contact controller
-
-
-     app.controller('ProductController', function(){
-         var Product = this;
-
-         var product1= {name: "SAF Scheme - Term Life", insurer: "Insurer A", agent:"MINDEF", policyno:"A236413", scheme:"Group Term Life", 
-           death:"$150,000", pa:"", health:"", remarks:""};
-         var product2= {name: "Term Product", insurer: "Insurer B", agent:"DPI", policyno:"B456789", scheme:"", 
-           death:"$25,000", pa:"", health:"" , remarks:""};
-         var product3= {name: "Term Product", insurer: "Insurer C", agent:"Lim Min Chew, (No: 549123)", policyno:"C446553", scheme:"", 
-           death:"$25,000", pa:"", health:"" , remarks:""};
-         var product4= {name: "SAF Scheme - PA", insurer: "Insurer Y", channel:"", agent:"", policyno:"K44256", scheme:"Group Personal Accident", 
-           death:"", pa:"$150,000", health:"" , remarks:"See T&C for actual benefit coverage"};
-         var product5= {name: "Medishield Life", insurer: "", channel:"", agent:"", policyno:"", scheme:"", 
-           death:"", pa:"", health:"" , remarks:"See Medishield Health Benefits"};
-
-         Product.list = [ product1, product2, product3, product4, product5 ];
-     })//close Product controller
-
-
-     app.controller('SummaryController', function(messages){
-         var Summary = this;
-         Summary.headings = ['Coverage', 'Total Sum Assured', 'Action', 'Remarks'];
-         Summary.actions = ['', 'Claim']
-         Summary.list = [
-             {coverage:'Death', TSA:'$250,000', action:1, remarks:'2 Policies with Terminal Illness claim; 2 Term Policies are extendable.'},
-             {coverage:'Personal Accident', TSA:'$150,000', action:1, remarks:'Premiums paid by Ministry of Defence'},
-             {coverage:'Health', TSA:'Benefits', action:0, remarks:'Premiums deducted from Medisave [31/5/2016].'}
-         ];
-
-         Summary.update = function(cvg) {
-             alert("Inform Insurer of " + cvg + "-related claim");
-             var updateString = "Notice: Inform insurer of " + cvg + "-related claim";
-             messages.add(updateString);
-         }
-     })//close Summary controller
-
-     app.controller('NotificationController', function(messages){
-         var Notification = this;
-         Notification.displayStatus = ['', 'New!'];
-         Notification.list = messages.list
-     })//close Notification controller
-
-
-    app.controller('PaymentController', function(){
-         var Payment = this;
-         Payment.headings = ['Date', 'Amount', 'Description', 'Remarks'];
-         Payment.Made = [
-             {date:'30/4/2016', amount:20, description:'Monthly Premiums(Insurer A Policy A236413)', remarks:''},
-             {date:'31/3/2016', amount:20, description:'Monthly Premiums(Insurer A Policy A236413)', remarks:''},
-             {date:'29/2/2016', amount:20, description:'Monthly Premiums(Insurer A Policy A236413)', remarks:''},
-             {date:'31/1/2016', amount:20, description:'Monthly Premiums(Insurer A Policy A236413)', remarks:''} 
-         ];
-        Payment.Received = [
-             {date:'31/7/2016', amount:5000, description:'PA Claim approved (Insurer Y Policy K44256)', remarks:'Paid to bank account P24435'} 
-         ];
-
-     })//close Payment controller
 
 </script> 
 
