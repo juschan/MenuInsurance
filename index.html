@@ -179,10 +179,9 @@ button:hover {
 <br />
 
 
-<ul class="nav nav-tabs" ng-controller="NavController as Nav">
+<ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#menu1">Menu 1</a></li>
   <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
-  <li><a data-toggle="tab" href="#menu3">Menu 3</a></li>
 </ul>
 
 <div class="tab-content">
@@ -290,7 +289,7 @@ button:hover {
                         <div class="panel-body">
                             <h2 class="text-center">Premium payable for next one year coverage selected</h2>
                             <br />
-                            <h2 class="text-center">$1,800</h2>    
+                            <h2 class="text-center">$<span id="premium"></span></h2>    
                             <br />
                         </div>
                     </div>
@@ -319,20 +318,19 @@ button:hover {
         <form id="regForm" action="">
                 
          <div class="panel">
-             <!-- One "tab" for each step in the form: -->
              <div class="panel panel-default">
                  <div class="panel-body">
                      <h2>Death Cover</h2>
                      <br />
-                     <h4>Sum Assured: $<span id="death_sa_value">10</span>,000</h4>
+                     <h4>Sum Assured: $<span id="death_sa_value2">10</span>,000</h4>
                      <div id="slidecontainer">
-                         <input type="range" min="10" max="500" value="100" class="slider" id="death_sa_slider">
+                         <input type="range" min="10" max="500" value="100" class="slider" id="death_sa_slider2">
                      </div>
                      <br />
                      <br />
-                     <h4>Coverage Term: <span id="death_term_value">5</span> years</h4>
+                     <h4>Coverage Term: <span id="death_term_value2">5</span> years</h4>
                      <div id="slidecontainer">
-                         <input type="range" min="1" max="50" value="5" class="slider" id="death_term_slider">
+                         <input type="range" min="1" max="50" value="5" class="slider" id="death_term_slider2">
                      </div>
                      <br />
                  </div>
@@ -342,15 +340,15 @@ button:hover {
                      <div class="panel-body">
                          <h2>Critical Illness Cover</h2>
                          <br />
-                         <h4>Sum Assured: $<span id="ci_sa_value">10</span>,000</h4>
+                         <h4>Sum Assured: $<span id="ci_sa_value2">10</span>,000</h4>
                          <div id="slidecontainer">
-                             <input type="range" min="10" max="500" value="10" class="slider" id="ci_sa_slider">
+                             <input type="range" min="10" max="500" value="10" class="slider" id="ci_sa_slider2">
                          </div>
                          <br />
                          <br />
-                         <h4>Coverage Term: <span id="ci_term_value">5</span> years</h4>
+                         <h4>Coverage Term: <span id="ci_term_value2">5</span> years</h4>
                          <div id="slidecontainer">
-                             <input type="range" min="1" max="50" value="5" class="slider" id="ci_term_slider">
+                             <input type="range" min="1" max="50" value="5" class="slider" id="ci_term_slider2">
                          </div>
                          <br />
                      </div>
@@ -360,9 +358,9 @@ button:hover {
                          <div class="panel-body">
                              <h2>Personal Accident Cover</h2>
                              <br />
-                             <h4>Sum Assured: $<span id="pa_sa_value">10</span>,000</h4>
+                             <h4>Sum Assured: $<span id="pa_sa_value2">10</span>,000</h4>
                              <div id="slidecontainer">
-                                 <input type="range" min="10" max="500" value="10" class="slider" id="pa_sa_slider">
+                                 <input type="range" min="10" max="500" value="10" class="slider" id="pa_sa_slider2">
                              </div>
                              <br />
                              <br />
@@ -400,15 +398,15 @@ button:hover {
                          <div class="panel-body">
                              <h2>Disability Cover</h2>
                              <br />
-                             <h4>Annual Payout: $<span id="disa_sa_value">10</span>,000</h4>
+                             <h4>Annual Payout: $<span id="disa_sa_value2">10</span>,000</h4>
                              <div id="slidecontainer">
-                                 <input type="range" min="10" max="50" value="10" class="slider" id="disa_sa_slider">
+                                 <input type="range" min="10" max="50" value="10" class="slider" id="disa_sa_slider2">
                              </div>
                              <br />
                              <br />
-                             <h4>Coverage Term: <span id="disa_term_value">5</span> years</h4>
+                             <h4>Coverage Term: <span id="disa_term_value2">5</span> years</h4>
                              <div id="slidecontainer">
-                                 <input type="range" min="1" max="50" value="5" class="slider" id="disa_term_slider">
+                                 <input type="range" min="1" max="50" value="5" class="slider" id="disa_term_slider2">
                              </div>
                              <br />
                          </div>
@@ -418,7 +416,7 @@ button:hover {
                          <div class="panel-body">
                              <h2 class="text-center">Premium payable for next one year coverage selected</h2>
                              <br />
-                             <h2 class="text-center">$1,800</h2>    
+                             <h2 class="text-center">$<span id="premium2"></span></h2>    
                              <br />
                          </div>
                      </div>
@@ -427,8 +425,6 @@ button:hover {
      </form> 
   </div>
 
-  <div id="menu3" class="tab-pane fade">
-    </div>
 
 </div> <!-- closes tab contents-->
 </div> <!-- closes well -->
@@ -448,6 +444,7 @@ button:hover {
 <script src="./w3.js"></script>
 <script src="./menu1.js"></script>
 <script src="./slider.js"></script>
+<script src="./slider2.js"></script>
 
 <!--Angular 1 code goes here-->
 <script>
