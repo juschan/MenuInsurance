@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>COVER</title>
+<!-- If IE use the latest rendering engine -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+ 
+<!-- Set the page to the width of the device and set the zoon level -->
+<meta name="viewport" content="width = device-width, initial-scale = 1">
+
+<!-- Get Boostrap 3.3.7 css-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<style>
+.jumbotron{
+    background-color:#49c2ff;
+    color:white;
+}
+/* Adds borders for tabs */
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+
+.navbar-custom{
+    background-color: #49c2ff;
+    color: white !important;
+}
+
+.navbar-nav>li>a {
+    color: white !important;
+}
+
+.navbar-default .navbar-brand {
+    background-color: #49c2ff;
+    color: white !important;
+}
+
+.nav-tabs {
+    margin-bottom: 0;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+    color: #555;
+    background-color: #49c2ff;
+}
+
+</style>
+
+</head>
+<body ng-app="CoverApp">
+
+<div class="container">
+
+<nav class="navbar navbar-default navbar-custom">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">COVER</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+      <!--<ul class="nav navbar-nav">
+        <li><a href="#">Home<span class="sr-only">(current)</span></a></li>
+      </ul>-->
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="index.html">Logout</a></li>
+      </ul>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="well well-sm">
+    <h4>Welcome Jonathon</h4>
+
+<br />
+
+<ul class="nav nav-tabs" ng-controller="NavController as Nav">
+  <li class="active"><a data-toggle="tab" href="#summary">Summary</a></li>
+  <li><a data-toggle="tab" href="#notifications"><span style='color:red'>{{Nav.newMsgCount()}} New </span> Notifications</a></li>
+  <li><a data-toggle="tab" href="#payments">Payments</a></li>
+  <li><a data-toggle="tab" href="#products">Product Details</a></li>
+  <li><a data-toggle="tab" href="#personal">Personal Details</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="summary" class="tab-pane fade in active" ng-controller="SummaryController as Summary">
+    <h3>Summary</h3>
+        <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th ng-repeat="heading in Summary.headings">{{ heading }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="summary in Summary.list">
+                    <td>{{ summary.coverage}}</td>
+                    <td>{{ summary.TSA}}</td>
+                    <td><button class="btn" style='padding:0px;margin:0px;' ng-click="Summary.update(summary.coverage)">{{ Summary.actions[summary.action] }}</button></td>
+                    <td>{{ summary.remarks}}</td>
+                </tbody>
+            </table>
+  </div>
+  
+  <div id="notifications" class="tab-pane fade" ng-controller="NotificationController as Notification">
+    <h3>Notifications</h3>
+        <ul class="list-group">
+        <li class="list-group-item" ng-repeat="ntfn in Notification.list">
+            <span class="label label-danger">{{ Notification.displayStatus[ntfn.status]}}</span> {{ntfn.content}}</li>
+        </ul>
+  </div>
+  
+  <div id="payments" class="tab-pane fade" ng-controller="PaymentController as Payment" >
+    <h3>Payments</h3>
+    <br />
+    <h4>Payments Made</h4>
+        <table class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th ng-repeat="heading in Payment.headings">{{ heading }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="paymentMade in Payment.Made">
+                    <td>{{ paymentMade.date}}</td>
+                    <td>{{ paymentMade.amount | currency}}</td>
+                    <td>{{ paymentMade.description}}</td>
+                    <td>{{ paymentMade.remarks}}</td>
+                </tbody>
+            </table>
+
+    <h4>Payments Received</h4>
+        <table class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th ng-repeat="heading in Payment.headings">{{ heading }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="paymentReceived in Payment.Received">
+                    <td>{{ paymentReceived.date}}</td>
+                    <td>{{ paymentReceived.amount | currency}}</td>
+                    <td>{{ paymentReceived.description}}</td>
+                    <td>{{ paymentReceived.remarks}}</td>
+                </tbody>
+                </tbody>
+            </table>
+  </div>
+
+    <div id="products" class="tab-pane fade" ng-controller="ProductController as Product">
+    <h3>Product Details</h3>
+        <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Coverage</th>
+                    <th ng-repeat="prd in Product.list"><a href="#" 
+                    title="Insurer: {{prd.insurer}} ;
+                    Policy Number: {{prd.policyno}} ;
+                    Agent: {{prd.agent}} ;
+                    Scheme: {{prd.scheme}} ;">
+                    {{prd.name}}</a></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Death</td>
+                    <td ng-repeat="prd in Product.list">{{prd.death }}</td>
+                </tr>
+                <tr>
+                    <td>Personal Accident</td>
+                    <td ng-repeat="prd in Product.list">{{prd.pa}}</td>
+                </tr>
+                <tr>
+                    <td>Health</td>
+                    <td ng-repeat="prd in Product.list">{{prd.health}}</td>
+                 </tr>
+                 <tr>
+                    <td>Remarks</td>
+                    <td ng-repeat="prd in Product.list">{{prd.remarks}}</td>
+                 </tr>
+                </tbody>
+            </table>
+  </div>
+
+  <div id="personal" class="tab-pane fade">
+    <h3>Personal Details</h3>
+
+        <div class="panel-group" id="accordion">
+
+            <div class="panel" id="panel1">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                <a data-toggle="collapse" data-target="#contact" href="#contact" class="collapsed">Contact Details</a></h4>
+                </div>
+                <div id="contact" class="panel-collapse collapse" ng-controller="ContactController as Contact">
+                    <div class="panel-body">
+                    <form ng-submit="Contact.update()">
+                       <p>Address: <input type="text" ng-model="Contact.address"></p>
+                       <p>Email: <input type="email" ng-model="Contact.email"></p>
+                       <p>Telephone: <input type="text" ng-model="Contact.tel"></p>
+                       <p>Mobile: <input type="text" ng-model="Contact.mobile"></p>
+                       <input type="submit">   
+                    </form>
+                    </div>
+                </div>
+             </div>          
+            
+            <div class="panel" id="panel2">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                <a data-toggle="collapse" data-target="#estate_planning" href="#estate_planning" class="collapsed">Estate Planning</a></h4>
+                </div>
+                <div id="estate_planning" class="panel-collapse collapse">
+                    <div class="panel-body">
+                       <ul>
+                        <li>Will - Last updated 31/7/2016.</li>
+                        <li>Legal Firm - Tan and Tan Solicitors</li>
+                        <li>Will Executor - Mr Tan Heng Liao (Tel: 94457283)</li>
+                        <li>CPF Beneficiaries - Last updated 31/5/2015</li>
+                        <li>Funeral Services - Prepaid. Contact L&C Funeral Services (Tel: 62244664)</li>
+                       </ul>
+                    </div>
+                </div>
+             </div>
+
+            <div class="panel" id="panel3">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                <a data-toggle="collapse" data-target="#disability" href="#disability" class="collapsed">Disability and Mental Incapacity</a></h4>
+                </div>
+                <div id="disability" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>Advanced Care Plan Nominee - Mrs Lim Chew Mei (Tel 88234983) <a href="https://livingmatters.sg/advance-care-planning/about-acp/#">Info</a></p>
+                        <p>Advanced Medical Directive - <a href="https://www.moh.gov.sg/content/dam/moh_web/Forms/FORM1AMD(270905).pdf">Uploaded Form</a> - Last Updated 31/12/2014</p>
+                        <p>Power of Attorney - Mrs Lim Chew Mei (Tel 88234983)</p>
+                    </div>
+                </div>
+            </div>
+         </div><!--close accordion -->
+     </div><!--close planning-->
+
+</div> <!-- closes tab contents-->
+</div> <!-- closes well -->
+
+
+</div> <!-- closes container -->
+
+
+<!-- Get jQuery 3.1.0-->
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.js"></script> 
+
+<!--Angular 1 code goes here-->
+<script>
+
+    $( function() {
+      $( "[title]" ).tooltip({ position: "top right", opacity: 0.7});
+    } );
+
+    var app = angular.module('CoverApp',[]);
+
+    app.factory('messages', function(){
+        var messages = {};
+
+        messages.list = [
+             {status:1, content:"Reminder - Outstanding Premium Payment (Insurer X Policy Y44513): Due 31st May 2016 [31/7/2016]"},
+             {status:1, content:"Travel Claim approved (Insurer Y Policy K44256): $5000 paid to bank account P24435 [31/7/2016]"},
+             {status:0, content:"PA Claim Form Received (Insurer Y, Policy K44256) [14/7/2016]"},
+             {status:0, content:"Reminder - Outstanding Premium Payment (Insurer X Policy Y44513): Due 31st May 2016 [31/6/2016]"} 
+         ];
+
+        messages.add = function(message){
+            messages.list.unshift({status:1, content: message});
+        };
+
+        return messages;
+     });
+
+
+     app.controller('NavController', function(messages){
+         var Nav = this;
+
+         Nav.newMsgCount = function() {
+            var newCount=0;
+            var msgs=messages.list;
+            var msgLength=msgs.length;
+            console.log(msgs)
+            for(var i=0; i<msgLength; i++) {
+                newCount +=msgs[i].status;
+            }
+            return newCount;
+         }
+
+     })//close Contact controller
+
+     app.controller('ContactController', function(messages){
+         var Contact = this;
+         
+         Contact.address = "Blk 123, Toa Payoh Ave 2, #10-10, S(423445)";
+         Contact.email = "jonathon@gmail.com";
+         Contact.tel = "67789456";
+         Contact.mobile = "95461237";
+         
+         Contact.update = function() {
+             alert("Change of Personal Contact Info Sent to Affected Parties - See Notifications");
+            // update notifications!
+             var updateString = "Update: " + Contact.address + "; " +  Contact.email + "; " +
+             Contact.tel + "; " + Contact.mobile;
+             messages.add(updateString);
+         }
+
+     })//close Contact controller
+
+
+     app.controller('ProductController', function(){
+         var Product = this;
+
+         var product1= {name: "SAF Scheme - Term Life", insurer: "Insurer A", agent:"MINDEF", policyno:"A236413", scheme:"Group Term Life", 
+           death:"$150,000", pa:"", health:"", remarks:""};
+         var product2= {name: "Term Product", insurer: "Insurer B", agent:"DPI", policyno:"B456789", scheme:"", 
+           death:"$25,000", pa:"", health:"" , remarks:""};
+         var product3= {name: "Term Product", insurer: "Insurer C", agent:"Lim Min Chew, (No: 549123)", policyno:"C446553", scheme:"", 
+           death:"$25,000", pa:"", health:"" , remarks:""};
+         var product4= {name: "SAF Scheme - PA", insurer: "Insurer Y", channel:"", agent:"", policyno:"K44256", scheme:"Group Personal Accident", 
+           death:"", pa:"$150,000", health:"" , remarks:"See T&C for actual benefit coverage"};
+         var product5= {name: "Medishield Life", insurer: "", channel:"", agent:"", policyno:"", scheme:"", 
+           death:"", pa:"", health:"" , remarks:"See Medishield Health Benefits"};
+
+         Product.list = [ product1, product2, product3, product4, product5 ];
+     })//close Product controller
+
+
+     app.controller('SummaryController', function(messages){
+         var Summary = this;
+         Summary.headings = ['Coverage', 'Total Sum Assured', 'Action', 'Remarks'];
+         Summary.actions = ['', 'Claim']
+         Summary.list = [
+             {coverage:'Death', TSA:'$250,000', action:1, remarks:'2 Policies with Terminal Illness claim; 2 Term Policies are extendable.'},
+             {coverage:'Personal Accident', TSA:'$150,000', action:1, remarks:'Premiums paid by Ministry of Defence'},
+             {coverage:'Health', TSA:'Benefits', action:0, remarks:'Premiums deducted from Medisave [31/5/2016].'}
+         ];
+
+         Summary.update = function(cvg) {
+             alert("Inform Insurer of " + cvg + "-related claim");
+             var updateString = "Notice: Inform insurer of " + cvg + "-related claim";
+             messages.add(updateString);
+         }
+     })//close Summary controller
+
+     app.controller('NotificationController', function(messages){
+         var Notification = this;
+         Notification.displayStatus = ['', 'New!'];
+         Notification.list = messages.list
+     })//close Notification controller
+
+
+    app.controller('PaymentController', function(){
+         var Payment = this;
+         Payment.headings = ['Date', 'Amount', 'Description', 'Remarks'];
+         Payment.Made = [
+             {date:'30/4/2016', amount:20, description:'Monthly Premiums(Insurer A Policy A236413)', remarks:''},
+             {date:'31/3/2016', amount:20, description:'Monthly Premiums(Insurer A Policy A236413)', remarks:''},
+             {date:'29/2/2016', amount:20, description:'Monthly Premiums(Insurer A Policy A236413)', remarks:''},
+             {date:'31/1/2016', amount:20, description:'Monthly Premiums(Insurer A Policy A236413)', remarks:''} 
+         ];
+        Payment.Received = [
+             {date:'31/7/2016', amount:5000, description:'PA Claim approved (Insurer Y Policy K44256)', remarks:'Paid to bank account P24435'} 
+         ];
+
+     })//close Payment controller
+
+</script> 
+
+</body>
+</html>
