@@ -186,7 +186,7 @@ button:hover {
 </ul>
 
 <div class="tab-content">
-  <div id="summary" class="tab-pane fade in active" ng-controller="SummaryController as Summary">
+  <div id="menu1" class="tab-pane fade in active">
 
     <form id="regForm" action="">
                
@@ -313,10 +313,122 @@ button:hover {
     
         </div>
     </form> 
-    
   </div>
   
-  
+  <div id="menu2" class="tab-pane fade">
+        <form id="regForm" action="">
+                
+         <div class="panel">
+             <!-- One "tab" for each step in the form: -->
+             <div class="panel panel-default">
+                 <div class="panel-body">
+                     <h2>Death Cover</h2>
+                     <br />
+                     <h4>Sum Assured: $<span id="death_sa_value">10</span>,000</h4>
+                     <div id="slidecontainer">
+                         <input type="range" min="10" max="500" value="100" class="slider" id="death_sa_slider">
+                     </div>
+                     <br />
+                     <br />
+                     <h4>Coverage Term: <span id="death_term_value">5</span> years</h4>
+                     <div id="slidecontainer">
+                         <input type="range" min="1" max="50" value="5" class="slider" id="death_term_slider">
+                     </div>
+                     <br />
+                 </div>
+             </div>
+             
+             <div class="panel panel-default">
+                     <div class="panel-body">
+                         <h2>Critical Illness Cover</h2>
+                         <br />
+                         <h4>Sum Assured: $<span id="ci_sa_value">10</span>,000</h4>
+                         <div id="slidecontainer">
+                             <input type="range" min="10" max="500" value="10" class="slider" id="ci_sa_slider">
+                         </div>
+                         <br />
+                         <br />
+                         <h4>Coverage Term: <span id="ci_term_value">5</span> years</h4>
+                         <div id="slidecontainer">
+                             <input type="range" min="1" max="50" value="5" class="slider" id="ci_term_slider">
+                         </div>
+                         <br />
+                     </div>
+                 </div>
+             
+                 <div class="panel panel-default">
+                         <div class="panel-body">
+                             <h2>Personal Accident Cover</h2>
+                             <br />
+                             <h4>Sum Assured: $<span id="pa_sa_value">10</span>,000</h4>
+                             <div id="slidecontainer">
+                                 <input type="range" min="10" max="500" value="10" class="slider" id="pa_sa_slider">
+                             </div>
+                             <br />
+                             <br />
+                         </div>
+                     </div>
+             
+                  <div class="panel panel-default">
+                         <div class="panel-body">
+                             <h2>Hospitalization Cover</h2>
+                             <br />
+                             <div class="radio">
+                                     <label>
+                                       <input type="radio" name="optionsRadios" id="optionsRadios1" value="Plan A">
+                                       Plan A - Class A and B1 Wards. Both Public and Private hospitals.
+                                     </label>
+                                   </div>
+                                   <div class="radio">
+                                     <label>
+                                       <input type="radio" name="optionsRadios" id="optionsRadios2" value="Plan B">
+                                       Plan B - Class B2+ and B2 Wards. Public hospitals.
+                                     </label>
+                                   </div>
+                                   <div class="radio disabled">
+                                     <label>
+                                       <input type="radio" name="optionsRadios" id="optionsRadios3" value="Plan C">
+                                       Plan C - Class C Wards. Public hospitals.
+                                     </label>
+                                   </div>
+                             <br />
+                             <br />
+                         </div>
+                     </div>
+ 
+                 <div class="panel panel-default">
+                         <div class="panel-body">
+                             <h2>Disability Cover</h2>
+                             <br />
+                             <h4>Annual Payout: $<span id="disa_sa_value">10</span>,000</h4>
+                             <div id="slidecontainer">
+                                 <input type="range" min="10" max="50" value="10" class="slider" id="disa_sa_slider">
+                             </div>
+                             <br />
+                             <br />
+                             <h4>Coverage Term: <span id="disa_term_value">5</span> years</h4>
+                             <div id="slidecontainer">
+                                 <input type="range" min="1" max="50" value="5" class="slider" id="disa_term_slider">
+                             </div>
+                             <br />
+                         </div>
+                     </div>
+ 
+                 <div class="panel panel-default">
+                         <div class="panel-body">
+                             <h2 class="text-center">Premium payable for next one year coverage selected</h2>
+                             <br />
+                             <h2 class="text-center">$1,800</h2>    
+                             <br />
+                         </div>
+                     </div>
+                  
+         </div>
+     </form> 
+  </div>
+
+  <div id="menu3" class="tab-pane fade">
+    </div>
 
 </div> <!-- closes tab contents-->
 </div> <!-- closes well -->
