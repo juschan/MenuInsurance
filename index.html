@@ -48,9 +48,57 @@
     background-color: #8C489F;
 }
 
-.personal_details {
-    vertical-align:middle;
+#regForm {
+  background-color: #ffffff;
+  margin: 100px auto;
+  padding: 40px;
+  width: 70%;
+  min-width: 300px;
 }
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+#prevBtn {
+  background-color: #bbbbbb;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;  
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #4CAF50;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
 </style>
 
 </head>
@@ -133,168 +181,57 @@
 
 
 <ul class="nav nav-tabs" ng-controller="NavController as Nav">
-  <li class="active"><a data-toggle="tab" href="#summary">Summary</a></li>
-  <li><a data-toggle="tab" href="#notifications"><span style='color:red'>{{Nav.newMsgCount()}} New </span> Notifications</a></li>
-  <li><a data-toggle="tab" href="#payments">Payments</a></li>
-  <li><a data-toggle="tab" href="#products">Product Details</a></li>
-  <li><a data-toggle="tab" href="#personal">Personal Details</a></li>
+  <li class="active"><a data-toggle="tab" href="#menu1">Menu 1</a></li>
+  <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+  <li><a data-toggle="tab" href="#menu3">Menu 3</a></li>
 </ul>
 
 <div class="tab-content">
   <div id="summary" class="tab-pane fade in active" ng-controller="SummaryController as Summary">
-    <h3>Summary</h3>
-        <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th ng-repeat="heading in Summary.headings">{{ heading }}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="summary in Summary.list">
-                    <td>{{ summary.coverage}}</td>
-                    <td>{{ summary.TSA}}</td>
-                    <td><button class="btn" style='padding:0px;margin:0px;' ng-click="Summary.update(summary.coverage)">{{ Summary.actions[summary.action] }}</button></td>
-                    <td>{{ summary.remarks}}</td>
-                </tbody>
-            </table>
-  </div>
-  
-  <div id="notifications" class="tab-pane fade" ng-controller="NotificationController as Notification">
-    <h3>Notifications</h3>
-        <ul class="list-group">
-        <li class="list-group-item" ng-repeat="ntfn in Notification.list">
-            <span class="label label-danger">{{ Notification.displayStatus[ntfn.status]}}</span> {{ntfn.content}}</li>
-        </ul>
-  </div>
-  
-  <div id="payments" class="tab-pane fade" ng-controller="PaymentController as Payment" >
-    <h3>Payments</h3>
-    <br />
-    <h4>Payments Made</h4>
-        <table class="table table-hover table-condensed">
-                <thead>
-                <tr>
-                    <th ng-repeat="heading in Payment.headings">{{ heading }}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="paymentMade in Payment.Made">
-                    <td>{{ paymentMade.date}}</td>
-                    <td>{{ paymentMade.amount | currency}}</td>
-                    <td>{{ paymentMade.description}}</td>
-                    <td>{{ paymentMade.remarks}}</td>
-                </tbody>
-            </table>
+    <h3>Menu 1</h3>
 
-    <h4>Payments Received</h4>
-        <table class="table table-hover table-condensed">
-                <thead>
-                <tr>
-                    <th ng-repeat="heading in Payment.headings">{{ heading }}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="paymentReceived in Payment.Received">
-                    <td>{{ paymentReceived.date}}</td>
-                    <td>{{ paymentReceived.amount | currency}}</td>
-                    <td>{{ paymentReceived.description}}</td>
-                    <td>{{ paymentReceived.remarks}}</td>
-                </tbody>
-                </tbody>
-            </table>
-  </div>
-
-    <div id="products" class="tab-pane fade" ng-controller="ProductController as Product">
-    <h3>Product Details</h3>
-        <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>Coverage</th>
-                    <th ng-repeat="prd in Product.list"><a href="#" 
-                    title="Insurer: {{prd.insurer}} ;
-                    Policy Number: {{prd.policyno}} ;
-                    Agent: {{prd.agent}} ;
-                    Scheme: {{prd.scheme}} ;">
-                    {{prd.name}}</a></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Death</td>
-                    <td ng-repeat="prd in Product.list">{{prd.death }}</td>
-                </tr>
-                <tr>
-                    <td>Personal Accident</td>
-                    <td ng-repeat="prd in Product.list">{{prd.pa}}</td>
-                </tr>
-                <tr>
-                    <td>Health</td>
-                    <td ng-repeat="prd in Product.list">{{prd.health}}</td>
-                 </tr>
-                 <tr>
-                    <td>Remarks</td>
-                    <td ng-repeat="prd in Product.list">{{prd.remarks}}</td>
-                 </tr>
-                </tbody>
-            </table>
-  </div>
-
-  <div id="personal" class="tab-pane fade">
-    <h3>Personal Details</h3>
-
-        <div class="panel-group" id="accordion">
-
-            <div class="panel" id="panel1">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                <a data-toggle="collapse" data-target="#contact" href="#contact" class="collapsed">Contact Details</a></h4>
-                </div>
-                <div id="contact" class="panel-collapse collapse" ng-controller="ContactController as Contact">
-                    <div class="panel-body">
-                    <form ng-submit="Contact.update()">
-                       <p>Address: <input type="text" ng-model="Contact.address"></p>
-                       <p>Email: <input type="email" ng-model="Contact.email"></p>
-                       <p>Telephone: <input type="text" ng-model="Contact.tel"></p>
-                       <p>Mobile: <input type="text" ng-model="Contact.mobile"></p>
-                       <input type="submit">   
-                    </form>
-                    </div>
-                </div>
-             </div>          
-            
-            <div class="panel" id="panel2">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                <a data-toggle="collapse" data-target="#estate_planning" href="#estate_planning" class="collapsed">Estate Planning</a></h4>
-                </div>
-                <div id="estate_planning" class="panel-collapse collapse">
-                    <div class="panel-body">
-                       <ul>
-                        <li>Will - Last updated 31/7/2016.</li>
-                        <li>Legal Firm - Tan and Tan Solicitors</li>
-                        <li>Will Executor - Mr Tan Heng Liao (Tel: 94457283)</li>
-                        <li>CPF Beneficiaries - Last updated 31/5/2015</li>
-                        <li>Funeral Services - Prepaid. Contact L&C Funeral Services (Tel: 62244664)</li>
-                       </ul>
-                    </div>
-                </div>
-             </div>
-
-            <div class="panel" id="panel3">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                <a data-toggle="collapse" data-target="#disability" href="#disability" class="collapsed">Disability and Mental Incapacity</a></h4>
-                </div>
-                <div id="disability" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <p>Advanced Care Plan Nominee - Mrs Lim Chew Mei (Tel 88234983) <a href="https://livingmatters.sg/advance-care-planning/about-acp/#">Info</a></p>
-                        <p>Advanced Medical Directive - <a href="https://www.moh.gov.sg/content/dam/moh_web/Forms/FORM1AMD(270905).pdf">Uploaded Form</a> - Last Updated 31/12/2014</p>
-                        <p>Power of Attorney - Mrs Lim Chew Mei (Tel 88234983)</p>
-                    </div>
-                </div>
+    <form id="regForm" action="">
+               
+        <div class="panel">
+            <!-- One "tab" for each step in the form: -->
+            <div class="tab"><h2>Death Cover</h2>
+                
             </div>
-         </div><!--close accordion -->
-     </div><!--close planning-->
+            
+            <div class="tab"><h2>Critical Illness Cover</h2>
+            </div>
+            
+            <div class="tab"><h2>Personal Accident Cover</h2>
+            </div>
+            
+            <div class="tab"><h2>Hospitalization Cover</h2>
+            </div>
+
+            <div class="tab"><h2>Disability Cover</h2>
+            </div>
+            
+            <div style="overflow:auto;">
+              <div style="float:right;">
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="btn btn-primary">Previous</button>
+                <button type="button" id="nextBtn" onclick="nextPrev(1)" class="btn btn-primary">Next</button>
+              </div>
+            </div>
+            
+            <!-- Circles which indicates the steps of the form: -->
+            <div style="text-align:center;margin-top:40px;">
+              <span class="step"></span>
+              <span class="step"></span>
+              <span class="step"></span>
+              <span class="step"></span>
+              <span class="step"></span>
+            </div>
+    
+        </div>
+    </form> 
+    
+  </div>
+  
+  
 
 </div> <!-- closes tab contents-->
 </div> <!-- closes well -->
@@ -310,7 +247,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.js"></script> 
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.js"></script>
+<script src="./w3.js"></script>
+<script src="./menu1.js"></script>
 
 <!--Angular 1 code goes here-->
 <script>
